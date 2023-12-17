@@ -2,26 +2,180 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 0 0% 3.9%;
+
+        --card: 0 0% 100%;
+        --card-foreground: 0 0% 3.9%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 0 0% 3.9%;
+
+        --primary: 271 70% 45%;
+        --primary-foreground: 0 0% 98%;
+
+        --secondary: 0 0% 96.1%;
+        --secondary-foreground: 0 0% 9%;
+
+        --muted: 0 0% 96.1%;
+        --muted-foreground: 0 0% 45.1%;
+
+        --accent: 0 0% 96.1%;
+        --accent-foreground: 0 0% 9%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+
+        --border: 0 0% 89.8%;
+        --input: 0 0% 89.8%;
+        --ring: 0 0% 3.9%;
+
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 0 0% 3.9%;
+        --foreground: 0 0% 98%;
+
+        --card: 0 0% 3.9%;
+        --card-foreground: 0 0% 98%;
+
+        --popover: 0 0% 3.9%;
+        --popover-foreground: 0 0% 98%;
+
+        --primary: 0 0% 98%;
+        --primary-foreground: 0 0% 9%;
+
+        --secondary: 0 0% 14.9%;
+        --secondary-foreground: 0 0% 98%;
+
+        --muted: 0 0% 14.9%;
+        --muted-foreground: 0 0% 63.9%;
+
+        --accent: 0 0% 14.9%;
+        --accent-foreground: 0 0% 98%;
+
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+
+        --border: 0 0% 14.9%;
+        --input: 0 0% 14.9%;
+        --ring: 0 0% 83.1%;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+        background-color: #fff !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+    .container {
+        @apply max-w-lg md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl px-4 md:px-8 xl:px-12 transition-all duration-150 ease-in-out;
+    }
+    .center {
+        @apply flex items-center justify-center;
+    }
+}
+
+@layer utilities {
+    @keyframes appear {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .animate-appear {
+        animation: appear 500ms ease-in-out;
+    }
+
+    @keyframes from-left {
+        0% {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .animate-from-left {
+        animation: from-left 300ms ease-in-out;
+    }
+
+    @keyframes sway-x {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(4rem);
+        }
+    }
+
+    .animate-sway-x {
+        animation: sway-x linear infinite;
+    }
+
+    @keyframes sway-y {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-2rem);
+        }
+    }
+
+    .animate-sway-y {
+        animation: sway-y linear infinite;
+    }
+
+    @keyframes pulse-ring {
+        0% {
+            @apply h-14 opacity-100;
+        }
+        100% {
+            @apply h-24 opacity-0;
+        }
+    }
+
+    @keyframes pulse-ring-768 {
+        0% {
+            @apply h-[4.5rem] opacity-100;
+        }
+        100% {
+            @apply h-[8rem] opacity-0;
+        }
+    }
+
+    .animate-pulse-ring {
+        animation: pulse-ring 1s linear infinite;
+        @media (min-width: 768px) {
+            animation: pulse-ring-768 1s linear infinite;
+        }
+    }
 }
